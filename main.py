@@ -6,12 +6,12 @@ import openai
 app = Flask(__name__)
 
 env = 'DEV'
-config = configparser.ConfigParser()
-config.read('config.ini')
+config_file_path= "C:\\Users\\ramit\\Projects\\Personal\\gpt3-framework\\config.cfg"
 
-print(config)
-print(config['DEV']['API_KEY'])
-openai.api_key = print(config['DEV']['API_KEY'])
+config = configparser.ConfigParser()
+config.read(config_file_path)
+
+openai.api_key = config.get(env, 'API_KEY')
 
 @app.route("/")
 def home():
@@ -23,14 +23,14 @@ def get_bot_response():
     response = openai.Completion.create(
         engine=config[env]['ENGINE'],
         prompt=userText,
-        temperature=int(config[env]['TEMPERATURE']),
+        temperature=float(config[env]['TEMPERATURE']),
         max_tokens=int(config[env]['MAX_TOKENS']),
-        top_p=int(config[env]['TOP_P']),
-        frequency_penalty=int(config[env]['FREQUENCY_PENALTY']),
-        presence_penalty=int(config[env]['PRESENCE_PENALTY']),
+        top_p=float(config[env]['TOP_P']),
+        frequency_penalty=float(config[env]['FREQUENCY_PENALTY']),
+        presence_penalty=float(config[env]['PRESENCE_PENALTY']),
         stop=["\n"]
     )
-    return str(response)
+    return str(response['choices'][0]['text'])
 
 
 if __name__ == "__main__":
