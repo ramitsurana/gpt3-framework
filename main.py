@@ -13,16 +13,16 @@ config.read(config_file_path)
 
 openai.api_key = config.get(env, 'API_KEY')
 
-@app.route("/")
+@app.route("/chatbot/")
 def home():
     return render_template("main.html")
 
-@app.route("/get")
+@app.route("/chatbot/get")
 def get_bot_response():
     userText = request.args.get('msg')
     response = openai.Completion.create(
         engine=config[env]['ENGINE'],
-        prompt=userText,
+        prompt=str(userText),
         temperature=float(config[env]['TEMPERATURE']),
         max_tokens=int(config[env]['MAX_TOKENS']),
         top_p=float(config[env]['TOP_P']),
