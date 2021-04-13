@@ -1,6 +1,5 @@
 from flask import Flask
 from flask import Flask, render_template, request
-from applications import routes
 import configparser
 import openai
 import os
@@ -16,6 +15,18 @@ if config.get('GLOBAL', 'API_KEY'):
     openai.api_key = config.get('GLOBAL', 'API_KEY')
 else:
     openai.api_key = os.getenv("API_KEY")
+
+@app.route('/')
+def home():
+    return render_template('base.html')
+
+@app.route('/chatbot/')
+def chatbot():
+    return render_template('chatbot.html')
+
+@app.route('/translator/')
+def translator():
+    return render_template('translator.html')
 
 @app.route("/chatbot/get")
 def get_bot_response():
@@ -35,4 +46,4 @@ def get_bot_response():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug = True)
