@@ -3,6 +3,7 @@ from flask import Flask, render_template, request
 from applications import routes
 import configparser
 import openai
+import os
 
 app = Flask(__name__)
 
@@ -11,7 +12,10 @@ config_file_path= "C:\\Users\\ramit\\Projects\\Personal\\gpt3-framework\\config.
 config = configparser.ConfigParser()
 config.read(config_file_path)
 
-openai.api_key = config.get('GLOBAL', 'API_KEY')
+if config.get('GLOBAL', 'API_KEY'):
+    openai.api_key = config.get('GLOBAL', 'API_KEY')
+else:
+    openai.api_key = os.getenv("API_KEY")
 
 @app.route("/chatbot/get")
 def get_bot_response():
