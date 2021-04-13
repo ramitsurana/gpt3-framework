@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import Flask, render_template, request
+from applications import routes
 import configparser
 import openai
 
@@ -11,10 +12,6 @@ config = configparser.ConfigParser()
 config.read(config_file_path)
 
 openai.api_key = config.get('GLOBAL', 'API_KEY')
-
-@app.route("/chatbot/")
-def home():
-    return render_template("chatbot.html")
 
 @app.route("/chatbot/get")
 def get_bot_response():
