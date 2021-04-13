@@ -2,7 +2,7 @@ name: GPT3 Framework Application
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
