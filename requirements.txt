@@ -1,5 +1,0 @@
-openai
-flask
-pymdown-extensions
-mkdocs-material
-mkdocs
