@@ -19,8 +19,8 @@ theme:
     - tabs
     - instant
   palette:
-    primary: indigo
-    accent: indigo
+    primary: black
+    accent: black
   font:
     text: Roboto
     code: Roboto Mono
